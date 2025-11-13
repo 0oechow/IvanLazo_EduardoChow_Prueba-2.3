@@ -10,7 +10,7 @@ class LoginWindow extends JFrame {
     private JPasswordField passField;
 
     public LoginWindow() {
-        setTitle("Login");
+        setTitle("Inicio de Sesión");
         setSize(300, 150);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,9 +83,4 @@ class MainWindow extends JFrame {
             model.addElement(producto.toString());
         }
     }
-
-    public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje);
-    }
-
 }
