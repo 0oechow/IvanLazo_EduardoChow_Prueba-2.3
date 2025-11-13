@@ -37,7 +37,6 @@ class LoginWindow extends JFrame {
     private void login() {
         String user = userField.getText().trim();
         if (!user.isEmpty()) {
-            dispose();
             new MainWindow(user);
         } else {
             JOptionPane.showMessageDialog(this, "Ingrese un usuario");
@@ -88,4 +87,5 @@ class MainWindow extends JFrame {
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
+
 }
