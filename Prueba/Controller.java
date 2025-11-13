@@ -74,6 +74,7 @@ class Inventario {
         return null;
     }
 
+    // Caso de uso para Agregar Stock
     public boolean agregarStock(String nombre, int cantidad) {
         Producto producto = buscarProducto(nombre);
         if (producto != null && cantidad > 0) {
@@ -82,17 +83,17 @@ class Inventario {
         }
         return false;
     }
-
+    // Caso de uso para Restar Stock
     public int restarStock(String nombre, int cantidad) {
         Producto producto = buscarProducto(nombre);
         if (producto != null && cantidad > 0) {
             if (producto.restarStock(cantidad)) {
-                return producto.getStock(); // Retorna el nuevo stock
+                return producto.getStock(); 
             } else {
-                return -1; // No hay suficiente stock
+                return -1; 
             }
         }
-        return -2; // Producto no encontrado o cantidad inválida
+        return -2; 
     }
 
     public boolean eliminarProducto(String nombre) {
@@ -115,7 +116,7 @@ class Inventario {
     public boolean estaVacio() {
         return productos.isEmpty();
     }
-
+    // Caso de uso para Reporte de Stock Crítico
     public ArrayList<Producto> getStockCritico(int limite) {
         ArrayList<Producto> criticos = new ArrayList<>();
         for (Producto p : productos) {
@@ -136,7 +137,6 @@ class MainController {
         this.ventana = ventana;
     }
 
-    // Métodos de negocio
     public boolean crearProducto(String nombre, int stockInicial) {
         return inventario.agregarProducto(nombre, stockInicial);
     }
@@ -169,7 +169,7 @@ class MainController {
         return inventario.estaVacio();
     }
 
-    // Métodos de interfaz movidos desde Ventana
+
     public JButton crearBoton(String texto, ActionListener listener) {
         JButton btn = new JButton(texto);
         btn.addActionListener(listener);
@@ -278,7 +278,6 @@ class MainController {
                         System.out.println("Stock restado exitosamente. Nuevo stock: " + resultado);
                         ventana.actualizarVista();
                         
-                        // Si el stock llega a 0, preguntar si eliminar el producto
                         if (resultado == 0) {
                             System.out.println("¿Eliminar producto " + item + "? (s/n): ");
                             String respuesta = cantidad.nextLine();
@@ -306,12 +305,12 @@ class MainController {
     // Caso de Uso para Generar Reportes (Boton Reporte)
     public void generarReportes() {
         if (estaVacio()) {
-            ventana.mostrarMensaje("La lista está vacía");
+            System.out.println("La lista está vacía");
             return;
         }
         
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\n=== GENERAR REPORTES ===");
+        System.out.println("\n| ° | GENERAR REPORTES | ° |");
         System.out.println("1. Reporte de Inventario Total");
         System.out.println("2. Reporte de Stock Crítico (stock < 5)");
         System.out.println("Seleccione opción: ");
@@ -332,7 +331,7 @@ class MainController {
     
     // Generar Reporte con For each 
     public void generarReporteInventarioTotal() {
-        System.out.println("\n=== INVENTARIO TOTAL ===");
+        System.out.println("\n| ° | INVENTARIO TOTAL | ° |");
         for (Producto producto : getInventarioTotal()) {
             System.out.println("Producto: " + producto.getNombre() + " - Stock: " + producto.getStock());
         }
@@ -340,7 +339,7 @@ class MainController {
     }
     
     public void generarReporteStockCritico() {
-        System.out.println("\n=== STOCK CRÍTICO (stock < 5) ===");
+        System.out.println("\n| ° |  STOCK CRÍTICO (stock < 5) | ° | ");
         ArrayList<Producto> criticos = getStockCritico(5);
         
         if (criticos.isEmpty()) {
